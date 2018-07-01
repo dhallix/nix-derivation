@@ -1,6 +1,6 @@
 # `nix-dhall` - Drive Nix with Dhall expressions
 
-`nix-dhall` providse infrastructure to drive [Nix](https://nixos.org/nix) using
+`nix-dhall` provides infrastructure to drive [Nix](https://nixos.org/nix) using
 [Dhall](https://dhall-lang.org) expressions. This repository provides the core
 primitives, namely:
 
