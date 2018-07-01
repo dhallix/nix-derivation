@@ -53,6 +53,46 @@ in  let derivation =
                         }
                     )
                     args.environment
+                , args =
+                    Prelude.`List`.map
+                    (./types/DerivationArgument.dhall ./types/Derivation.dhall)
+                    (./types/DerivationArgument.dhall Derivation)
+                    (   λ ( arg
+                          : ./types/DerivationArgument.dhall
+                            ./types/Derivation.dhall
+                          )
+                      → merge
+                        { Derivation =
+                              λ(d : ./types/Derivation.dhall)
+                            → < Derivation =
+                                  d Derivation derivation
+                              | `Text` :
+                                  Text
+                              | LocalPath :
+                                  Text
+                              >
+                        , `Text` =
+                              λ(t : Text)
+                            → < `Text` =
+                                  t
+                              | LocalPath :
+                                  Text
+                              | Derivation :
+                                  Derivation
+                              >
+                        , LocalPath =
+                              λ(p : Text)
+                            → < LocalPath =
+                                  p
+                              | `Text` :
+                                  Text
+                              | Derivation :
+                                  Derivation
+                              >
+                        }
+                        arg
+                    )
+                    args.args
                 }
             )
 

@@ -8,7 +8,7 @@
   , environment :
       List { name : Text, value : ./EnvironmentVariable.dhall Derivation }
   , args :
-      List ./DerivationArgument.dhall
+      List (./DerivationArgument.dhall Derivation)
   , outputs :
       List Text
   , preferLocalBuild :

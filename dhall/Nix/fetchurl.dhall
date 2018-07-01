@@ -10,25 +10,14 @@ in  let outputHashModes = constructors ./types/OutputHashMode.dhall
 
 in    λ(args : { name : Text, url : Text, sha256 : Text, executable : Bool })
     → derivation
-      (   args.{ executable, name }
+      (   ./defaults/DerivationArgs.dhall
+        ⫽ args.{ executable, name }
         ⫽ { system =
               systems.builtin {=}
-          , args =
-              [] : List ./types/DerivationArgument.dhall
           , builder =
               builders.FetchUrl {=}
-          , environment =
-              [] : List
-                   { name :
-                       Text
-                   , value :
-                       ./types/EnvironmentVariable.dhall
-                       ./types/Derivation.dhall
-                   }
           , preferLocalBuild =
               True
-          , outputs =
-              [ "out" ]
           , outputHashMode =
               [ outputHashModes.flat {=} ] : Optional
                                              ./types/OutputHashMode.dhall

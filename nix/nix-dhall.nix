@@ -21,6 +21,7 @@ let
           map
             (arg: arg { Text = t: t;
                         LocalPath = p: builtins.path { path = p; };
+                        Derivation = d: d;
                       })
             args.args;
       } // (if args.outputHashMode != null then
