@@ -1,3 +1,3 @@
   ∀(Derivation : Type)
-→ ∀(derivation : ./DerivationArgs.dhall  Derivation → Derivation)
+→ ∀(derivation : ./DerivationArgs.dhall Derivation → Derivation)
 → Derivation

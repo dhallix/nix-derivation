@@ -1,20 +1,20 @@
   λ(Derivation : Type)
 → { system :
-      ./System.dhall 
+      ./System.dhall
   , name :
       Text
   , builder :
-      ./Builder.dhall  Derivation
+      ./Builder.dhall Derivation
   , environment :
-      List { name : Text, value : ./EnvironmentVariable.dhall  Derivation }
+      List { name : Text, value : ./EnvironmentVariable.dhall Derivation }
   , args :
-      List Text
+      List ./DerivationArgument.dhall
   , outputs :
       List Text
   , preferLocalBuild :
       Bool
   , outputHashMode :
-      Optional ./OutputHashMode.dhall 
+      Optional ./OutputHashMode.dhall
   , url :
       Optional Text
   , executable :
@@ -22,5 +22,5 @@
   , outputHash :
       Optional Text
   , outputHashAlgo :
-      Optional ./HashAlgorithm.dhall 
+      Optional ./HashAlgorithm.dhall
   }

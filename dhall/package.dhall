@@ -1,1 +1,1 @@
-{ derivation = ./Nix/derivation.dhall , fetchurl = ./Nix/fetchurl.dhall  }
+{ derivation = ./Nix/derivation.dhall, fetchurl = ./Nix/fetchurl.dhall }

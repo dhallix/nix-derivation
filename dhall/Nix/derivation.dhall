@@ -1,18 +1,16 @@
     let Prelude =
-          https://raw.githubusercontent.com/dhall-lang/Prelude/master/package.dhall 
+          https://raw.githubusercontent.com/dhall-lang/Prelude/master/package.dhall
 
 in  let derivation =
-            λ(args : ./types/DerivationArgs.dhall  ./types/Derivation.dhall )
+            λ(args : ./types/DerivationArgs.dhall ./types/Derivation.dhall)
           → λ(Derivation : Type)
-          → λ ( derivation
-              : ./types/DerivationArgs.dhall  Derivation → Derivation
-              )
+          → λ(derivation : ./types/DerivationArgs.dhall Derivation → Derivation)
           → derivation
             (   args
               ⫽ { builder =
                     merge
                     { Derivation =
-                          λ(d : ./types/Derivation.dhall )
+                          λ(d : ./types/Derivation.dhall)
                         → < Derivation =
                               d Derivation derivation
                           | FetchUrl :
@@ -27,20 +25,20 @@ in  let derivation =
                     { name :
                         Text
                     , value :
-                        ./types/EnvironmentVariable.dhall 
-                        ./types/Derivation.dhall 
+                        ./types/EnvironmentVariable.dhall
+                        ./types/Derivation.dhall
                     }
                     { name :
                         Text
                     , value :
-                        ./types/EnvironmentVariable.dhall  Derivation
+                        ./types/EnvironmentVariable.dhall Derivation
                     }
                     (   λ ( kv
                           : { name :
                                 Text
                             , value :
-                                ./types/EnvironmentVariable.dhall 
-                                ./types/Derivation.dhall 
+                                ./types/EnvironmentVariable.dhall
+                                ./types/Derivation.dhall
                             }
                           )
                       → { name =
@@ -48,7 +46,7 @@ in  let derivation =
                         , value =
                             merge
                             { Derivation =
-                                  λ(d : ./types/Derivation.dhall )
+                                  λ(d : ./types/Derivation.dhall)
                                 → < Derivation = d Derivation derivation >
                             }
                             kv.value
