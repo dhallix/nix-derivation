@@ -9,7 +9,7 @@ in  let builders =
 
 in  let outputHashModes = constructors ./types/OutputHashMode.dhall 
 
-in    λ(args : { name : Text, url : Text, sha256 : Text })
+in    λ(args : { name : Text, url : Text, sha256 : Text, executable : Bool })
     → derivation
       { name =
           args.name
@@ -39,5 +39,5 @@ in    λ(args : { name : Text, url : Text, sha256 : Text })
       , url =
           [ args.url ] : Optional Text
       , executable =
-          True
+          args.executable
       }
