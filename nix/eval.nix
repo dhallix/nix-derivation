@@ -1,7 +1,6 @@
 x:
 x
   null
-  ( x: "${x}" )
   ( args:
     derivation (
     ( builtins.mapAttrs
