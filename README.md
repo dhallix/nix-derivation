@@ -14,8 +14,7 @@ used to bootstrap `nixpkgs` - thanks!). All these `fetchurl` invocations are
 normal form is:
 
 ``` dhall
-  λ(Derivation : Type)
-→ λ ( Mk-Derivation
+  λ ( Mk-Derivation
     :   { args :
             List Text
         , builder :
