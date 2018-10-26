@@ -1,4 +1,1 @@
-  ∀(Derivation : Type)
-→ ∀(store-path : Derivation → Text)
-→ ∀(Mk-Derivation : ./Args.dhall → Derivation)
-→ Derivation
+∀(Derivation : Type) → ∀(Mk-Derivation : ./Args.dhall → Text) → Text
