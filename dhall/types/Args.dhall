@@ -10,10 +10,6 @@
     List Text
 , outputs :
     List Text
-, output-hash-mode :
-    Optional ./Output-Hash-Mode.dhall
 , output-hash :
-    Optional Text
-, output-hash-algorithm :
-    Optional ./Output-Hash-Algorithm.dhall
+    Optional ./Output-Hash.dhall
 }

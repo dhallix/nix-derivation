@@ -18,18 +18,19 @@ in  let fetch-url
                       dhallix.System.builtin
                   , builder =
                       dhallix.Builder.Builtin dhallix.Builtin.Fetch-Url
-                  , output-hash-mode =
-                      [       if args.executable
-                        
-                        then  dhallix.Output-Hash-Mode.Recursive
-                        
-                        else  dhallix.Output-Hash-Mode.Flat
-                      ] : Optional T.Output-Hash-Mode
                   , output-hash =
-                      [ args.sha256 ] : Optional Text
-                  , output-hash-algorithm =
-                      [ dhallix.Output-Hash-Algorithm.SHA256
-                      ] : Optional T.Output-Hash-Algorithm
+                      [ { mode =
+                                  if args.executable
+                            
+                            then  dhallix.Output-Hash-Mode.Recursive
+                            
+                            else  dhallix.Output-Hash-Mode.Flat
+                        , hash =
+                            args.sha256
+                        , algorithm =
+                            dhallix.Output-Hash-Algorithm.SHA256
+                        }
+                      ] : Optional T.Output-Hash
                   , environment =
                       [ { name =
                             "url"

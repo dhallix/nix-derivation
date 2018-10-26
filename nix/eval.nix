@@ -29,24 +29,18 @@ x
             x86_64-linux = _: "x86_64-linux";
           };
     } //
-    ( if args.output-hash-mode != null then
+    ( if args.output-hash != null then
         { outputHashMode =
-            args.output-hash-mode
+            args.output-hash.mode
               { Flat = _: "flat";
                 Recursive = _: "recursive";
               };
-        }
-      else
-        {}
-    ) //
-    ( if args.output-hash != null then
-        { outputHash = args.output-hash; }
-      else
-        {}
-    ) //
-    ( if args.output-hash-algorithm != null then
-        { outputHashAlgo =
-            args.output-hash-algorithm
+
+          outputHash =
+            args.output-hash.hash;
+
+          outputHashAlgo =
+            args.output-hash.algorithm
               ( { SHA256 = _: "sha256"; } );
         }
       else
