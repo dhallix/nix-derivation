@@ -15,7 +15,6 @@ normal form is:
 
 ``` dhall
   λ(Derivation : Type)
-→ λ(store-path : Derivation → Text)
 → λ ( Mk-Derivation
     :   { args :
             List Text
@@ -26,17 +25,20 @@ normal form is:
         , name :
             Text
         , output-hash :
-            Optional Text
-        , output-hash-algorithm :
-            Optional < SHA256 : {} >
-        , output-hash-mode :
-            Optional < Flat : {} | Recursive : {} >
+            Optional
+            { algorithm :
+                < SHA256 : {} >
+            , hash :
+                Text
+            , mode :
+                < Flat : {} | Recursive : {} >
+            }
         , outputs :
             List Text
         , system :
             < builtin : {} | x86_64-linux : {} >
         }
-      → Derivation
+      → Text
     )
 → Mk-Derivation
   { args =
@@ -59,11 +61,14 @@ normal form is:
   , name =
       "busybox"
   , output-hash =
-      Some "ef4c1be6c7ae57e4f654efd90ae2d2e204d6769364c46469fa9ff3761195cba1"
-  , output-hash-algorithm =
-      Some < SHA256 = {=} >
-  , output-hash-mode =
-      Some < Recursive = {=} | Flat : {} >
+      Some
+      { algorithm =
+          < SHA256 = {=} >
+      , hash =
+          "ef4c1be6c7ae57e4f654efd90ae2d2e204d6769364c46469fa9ff3761195cba1"
+      , mode =
+          < Recursive = {=} | Flat : {} >
+      }
   , outputs =
       [ "out" ]
   , system =
