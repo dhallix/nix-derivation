@@ -1,7 +1,5 @@
 x:
-x
-  null
-  ( args:
+x ( args:
     derivation (
     ( builtins.mapAttrs
         ( _: v:
