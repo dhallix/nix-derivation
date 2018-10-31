@@ -69,14 +69,16 @@ in  dhallix.derivation
                   tar xzf "${store-path `gcc-8.2.0.tar.gz`}"
                   mkdir objdir
                   cd objdir
-                  ../gcc-8.2.0/configure --with-mpc="${store-path
-                                                       mpc}" --with-gmp="${store-path
-                                                                           `gmp-6.1.2`}" --with-mpfr="${store-path
-                                                                                                        mpfr}" CPPFLAGS="-idirafter ${store-path
-                                                                                                                                      bootstrap-tools}/include-glibc -idirafter ${store-path
-                                                                                                                                                                                  bootstrap-tools}/lib/gcc/x86_64-unknown-linux-gnu/5.3.0/include-fixed -Wl,-dynamic-linker -Wl,${store-path
-                                                                                                                                                                                                                                                                                  bootstrap-tools}/lib/ld-linux-x86-64.so.2 -Wl,-rpath -Wl,${store-path
-                                                                                                                                                                                                                                                                                                                                             bootstrap-tools}/lib" --prefix="$out"
+                  export CPPFLAGS="-idirafter ${store-path
+                                                bootstrap-tools}/include-glibc -idirafter ${store-path
+                                                                                            bootstrap-tools}/lib/gcc/x86_64-unknown-linux-gnu/5.3.0/include-fixed"
+                  export LDFLAGS="-Wl,-dynamic-linker -Wl,${store-path
+                                                            bootstrap-tools}/lib/ld-linux-x86-64.so.2 -Wl,-rpath -Wl,${store-path
+                                                                                                                       bootstrap-tools}/lib"
+                  ../gcc-8.2.0/configure --disable-multilib --with-mpc="${store-path
+                                                                          mpc}" --with-gmp="${store-path
+                                                                                              `gmp-6.1.2`}" --with-mpfr="${store-path
+                                                                                                                           mpfr}" --prefix="$out"
                   make
                   make check
                   make install
