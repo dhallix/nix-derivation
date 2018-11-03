@@ -28,23 +28,22 @@ in  let `unpack-bootstrap-tools.sh` =
               False
           }
 
-in  dhallix.derivation
-    (   λ(store-path : T.Derivation → Text)
-      →   dhallix.defaults.Args
-        ⫽ { builder =
-              dhallix.Builder.Exe "${store-path busybox}"
-          , args =
-              [ "ash", store-path `unpack-bootstrap-tools.sh` ]
-          , name =
-              "bootstrap-tools"
-          , system =
-              dhallix.System.x86_64-linux
-          , environment =
-              [ { name =
-                    "tarball"
-                , value =
-                    dhallix.Env.`Text` (store-path `bootstrap-tools.tar.xz`)
-                }
-              ]
-          }
+in  derivation
+    (   dhallix.defaults.Args
+      ⫽ { builder =
+            dhallix.Builder.Exe "${busybox}"
+        , args =
+            [ "ash", `unpack-bootstrap-tools.sh` ]
+        , name =
+            "bootstrap-tools"
+        , system =
+            dhallix.System.x86_64-linux
+        , environment =
+            [ { name =
+                  "tarball"
+              , value =
+                  dhallix.Env.`Text` `bootstrap-tools.tar.xz`
+              }
+            ]
+        }
     )

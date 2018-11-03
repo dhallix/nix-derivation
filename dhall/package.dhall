@@ -1,3 +1,1 @@
-  { fetch-url = ./fetch-url.dhall, derivation = ./derivation.dhall }
-⫽ ./constructors.dhall
-⫽ ./defaults.dhall
+{ fetch-url = ./fetch-url.dhall } ⫽ ./constructors.dhall ⫽ ./defaults.dhall
