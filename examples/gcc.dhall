@@ -28,7 +28,7 @@ in  let write-file =
             (   λ(store-path : T.Derivation → Text)
               →   dhallix.defaults.Args
                 ⫽ { builder =
-                      dhallix.Builder.Exe
+                      T.Builder.Exe
                       "${store-path bootstrap-tools}/bin/bash"
                   , args =
                       [ "-c"
@@ -38,17 +38,17 @@ in  let write-file =
                   , name =
                       "source"
                   , system =
-                      dhallix.System.x86_64-linux
+                      T.System.x86_64-linux
                   , environment =
                       [ { name =
                             "source"
                         , value =
-                            dhallix.Environment-Variable.`Text` source
+                            T.Environment-Variable.`Text` source
                         }
                       , { name =
                             "passAsFile"
                         , value =
-                            dhallix.Environment-Variable.`Text` "source"
+                            T.Environment-Variable.`Text` "source"
                         }
                       ]
                   }
@@ -60,7 +60,7 @@ in  dhallix.derivation
           )
       →   dhallix.defaults.Args
         ⫽ { builder =
-              dhallix.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+              T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
           , args =
               [ store-path
                 ( write-file
@@ -88,6 +88,6 @@ in  dhallix.derivation
           , name =
               "gcc-8.2.0"
           , system =
-              dhallix.System.x86_64-linux
+              T.System.x86_64-linux
           }
     )

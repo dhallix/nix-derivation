@@ -29,7 +29,7 @@ in  dhallix.derivation
           )
       →   dhallix.defaults.Args
         ⫽ { builder =
-              dhallix.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+              T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
           , args =
               [ store-path
                 ( write-file
@@ -53,6 +53,6 @@ in  dhallix.derivation
           , name =
               "mpc-1.1.0"
           , system =
-              dhallix.System.x86_64-linux
+              T.System.x86_64-linux
           }
     )

@@ -32,18 +32,18 @@ in  dhallix.derivation
     (   λ(store-path : T.Derivation → Text)
       →   dhallix.defaults.Args
         ⫽ { builder =
-              dhallix.Builder.Exe "${store-path busybox}"
+              T.Builder.Exe "${store-path busybox}"
           , args =
               [ "ash", store-path `unpack-bootstrap-tools.sh` ]
           , name =
               "bootstrap-tools"
           , system =
-              dhallix.System.x86_64-linux
+              T.System.x86_64-linux
           , environment =
               [ { name =
                     "tarball"
                 , value =
-                    dhallix.Env.`Text` (store-path `bootstrap-tools.tar.xz`)
+                    T.Environment-Variable.`Text` (store-path `bootstrap-tools.tar.xz`)
                 }
               ]
           }

@@ -1,1 +1,1 @@
-< Recursive : {} | Flat : {} >
+< Recursive | Flat >

@@ -9,7 +9,7 @@ in    λ(source : Text)
       (   λ(store-path : T.Derivation → Text)
         →   dhallix.defaults.Args
           ⫽ { builder =
-                dhallix.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+                T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
             , args =
                 [ "-c"
                 , "${store-path bootstrap-tools}/bin/cp \$sourcePath \$out"
@@ -17,17 +17,17 @@ in    λ(source : Text)
             , name =
                 "source"
             , system =
-                dhallix.System.x86_64-linux
+                T.System.x86_64-linux
             , environment =
                 [ { name =
                       "source"
                   , value =
-                      dhallix.Environment-Variable.`Text` source
+                      T.Environment-Variable.`Text` source
                   }
                 , { name =
                       "passAsFile"
                   , value =
-                      dhallix.Environment-Variable.`Text` "source"
+                      T.Environment-Variable.`Text` "source"
                   }
                 ]
             }
