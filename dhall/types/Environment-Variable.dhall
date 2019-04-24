@@ -1,1 +1,1 @@
-< `Bool` : Bool | `Text` : Text >
+< Bool : Bool | Text : Text >

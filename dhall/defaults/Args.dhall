@@ -5,5 +5,5 @@
 , outputs =
     [ "out" ]
 , output-hash =
-    [] : Optional ./../types/Output-Hash.dhall
+    None ./../types/Output-Hash.dhall
 }
