@@ -1,1 +1,1 @@
-< x86_64-linux : {} | builtin : {} >
+< x86_64-linux | builtin >

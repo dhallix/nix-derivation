@@ -1,1 +1,1 @@
-< Fetch-Url : {} >
+< Fetch-Url >
