@@ -1,27 +1,27 @@
 
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
-in  let T = ./../dhall/types.dhall
+let T = ./../dhall/types.dhall
 
-in  let bootstrap-tools = ./bootstrap-tools.dhall
+let bootstrap-tools = ./bootstrap-tools.dhall
 
-in  let `mpc-1.1.0.tar.gz` =
-          dhallix.fetch-url
-          { url =
-              "https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz"
-          , sha256 =
-              "0biwnhjm3rx3hc0rfpvyniky4lpzsvdcwhmcn7f0h4iw2hwcb1b9"
-          , name =
-              "mpc-1.1.0.tar.xz"
-          , executable =
-              False
-          }
+let `mpc-1.1.0.tar.gz` =
+      dhallix.fetch-url
+      { url =
+          "https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz"
+      , sha256 =
+          "0biwnhjm3rx3hc0rfpvyniky4lpzsvdcwhmcn7f0h4iw2hwcb1b9"
+      , name =
+          "mpc-1.1.0.tar.xz"
+      , executable =
+          False
+      }
 
-in  let gmp = ./gmp.dhall
+let gmp = ./gmp.dhall
 
-in  let mpfr = ./mpfr.dhall
+let mpfr = ./mpfr.dhall
 
-in  let write-file = ./write-file.dhall
+let write-file = ./write-file.dhall
 
 in  dhallix.derivation
     (   λ ( store-path

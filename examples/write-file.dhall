@@ -1,8 +1,8 @@
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
-in  let T = ./../dhall/types.dhall
+let T = ./../dhall/types.dhall
 
-in  let bootstrap-tools = ./bootstrap-tools.dhall
+let bootstrap-tools = ./bootstrap-tools.dhall
 
 in    λ(source : Text)
     → dhallix.derivation
@@ -22,12 +22,12 @@ in    λ(source : Text)
                 [ { name =
                       "source"
                   , value =
-                      T.Environment-Variable.`Text` source
+                      T.Environment-Variable.Text source
                   }
                 , { name =
                       "passAsFile"
                   , value =
-                      T.Environment-Variable.`Text` "source"
+                      T.Environment-Variable.Text "source"
                   }
                 ]
             }

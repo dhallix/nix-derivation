@@ -1,22 +1,22 @@
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
-in  let T = ./../dhall/types.dhall
+let T = ./../dhall/types.dhall
 
-in  let bootstrap-tools = ./bootstrap-tools.dhall
+let bootstrap-tools = ./bootstrap-tools.dhall
 
-in  let `m4-1.4.18.tar.xz` =
-          dhallix.fetch-url
-          { url =
-              "ftp://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz"
-          , sha256 =
-              "01sfjd5a4waqw83bibvmn522g69qfqvwig9i2qlgy154l1nfihgj"
-          , name =
-              "m4-1.4.18.tar.xz"
-          , executable =
-              False
-          }
+let `m4-1.4.18.tar.xz` =
+      dhallix.fetch-url
+      { url =
+          "ftp://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz"
+      , sha256 =
+          "01sfjd5a4waqw83bibvmn522g69qfqvwig9i2qlgy154l1nfihgj"
+      , name =
+          "m4-1.4.18.tar.xz"
+      , executable =
+          False
+      }
 
-in  let write-file = ./write-file.dhall
+let write-file = ./write-file.dhall
 
 in  dhallix.derivation
     (   λ ( store-path

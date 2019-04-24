@@ -1,58 +1,56 @@
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
-in  let T = ./../dhall/types.dhall
+let T = ./../dhall/types.dhall
 
-in  let bootstrap-tools = ./bootstrap-tools.dhall
+let bootstrap-tools = ./bootstrap-tools.dhall
 
-in  let `gcc-8.2.0.tar.gz` =
-          dhallix.fetch-url
-          { url =
-              "ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-8.2.0/gcc-8.2.0.tar.gz"
-          , sha256 =
-              "03q2farmhd099rd1kw0p1y0n1f37af1l6dy8p75mizs522z3c3qv"
-          , name =
-              "gcc-8.2.0.tar.gz"
-          , executable =
-              False
-          }
+let `gcc-8.2.0.tar.gz` =
+      dhallix.fetch-url
+      { url =
+          "ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-8.2.0/gcc-8.2.0.tar.gz"
+      , sha256 =
+          "03q2farmhd099rd1kw0p1y0n1f37af1l6dy8p75mizs522z3c3qv"
+      , name =
+          "gcc-8.2.0.tar.gz"
+      , executable =
+          False
+      }
 
-in  let `gmp-6.1.2` = ./gmp.dhall
+let `gmp-6.1.2` = ./gmp.dhall
 
-in  let mpfr = ./mpfr.dhall
+let mpfr = ./mpfr.dhall
 
-in  let mpc = ./mpc.dhall
+let mpc = ./mpc.dhall
 
-in  let write-file =
-            λ(source : Text)
-          → dhallix.derivation
-            (   λ(store-path : T.Derivation → Text)
-              →   dhallix.defaults.Args
-                ⫽ { builder =
-                      T.Builder.Exe
-                      "${store-path bootstrap-tools}/bin/bash"
-                  , args =
-                      [ "-c"
-                      , "${store-path
-                           bootstrap-tools}/bin/cp \$sourcePath \$out"
-                      ]
-                  , name =
-                      "source"
-                  , system =
-                      T.System.x86_64-linux
-                  , environment =
-                      [ { name =
-                            "source"
-                        , value =
-                            T.Environment-Variable.`Text` source
-                        }
-                      , { name =
-                            "passAsFile"
-                        , value =
-                            T.Environment-Variable.`Text` "source"
-                        }
-                      ]
-                  }
-            )
+let write-file =
+        λ(source : Text)
+      → dhallix.derivation
+        (   λ(store-path : T.Derivation → Text)
+          →   dhallix.defaults.Args
+            ⫽ { builder =
+                  T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+              , args =
+                  [ "-c"
+                  , "${store-path bootstrap-tools}/bin/cp \$sourcePath \$out"
+                  ]
+              , name =
+                  "source"
+              , system =
+                  T.System.x86_64-linux
+              , environment =
+                  [ { name =
+                        "source"
+                    , value =
+                        T.Environment-Variable.Text source
+                    }
+                  , { name =
+                        "passAsFile"
+                    , value =
+                        T.Environment-Variable.Text "source"
+                    }
+                  ]
+              }
+        )
 
 in  dhallix.derivation
     (   λ ( store-path

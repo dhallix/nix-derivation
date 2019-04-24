@@ -1,25 +1,25 @@
 
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
-in  let T = ./../dhall/types.dhall
+let T = ./../dhall/types.dhall
 
-in  let bootstrap-tools = ./bootstrap-tools.dhall
+let bootstrap-tools = ./bootstrap-tools.dhall
 
-in  let `mpfr-4.0.1.tar.xz` =
-          dhallix.fetch-url
-          { url =
-              "https://www.mpfr.org/mpfr-current/mpfr-4.0.1.tar.xz"
-          , sha256 =
-              "0vp1lrc08gcmwdaqck6bpzllkrykvp06vz5gnqpyw0v3h9h4m1v7"
-          , name =
-              "mpfr-4.0.1.tar.xz"
-          , executable =
-              False
-          }
+let `mpfr-4.0.1.tar.xz` =
+      dhallix.fetch-url
+      { url =
+          "https://www.mpfr.org/mpfr-current/mpfr-4.0.1.tar.xz"
+      , sha256 =
+          "0vp1lrc08gcmwdaqck6bpzllkrykvp06vz5gnqpyw0v3h9h4m1v7"
+      , name =
+          "mpfr-4.0.1.tar.xz"
+      , executable =
+          False
+      }
 
-in  let gmp = ./gmp.dhall
+let gmp = ./gmp.dhall
 
-in  let write-file = ./write-file.dhall
+let write-file = ./write-file.dhall
 
 in  dhallix.derivation
     (   λ ( store-path

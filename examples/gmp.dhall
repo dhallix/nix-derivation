@@ -1,25 +1,25 @@
 
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
-in  let T = ./../dhall/types.dhall
+let T = ./../dhall/types.dhall
 
-in  let bootstrap-tools = ./bootstrap-tools.dhall
+let bootstrap-tools = ./bootstrap-tools.dhall
 
-in  let `gmp-6.1.2.tar.xz` =
-          dhallix.fetch-url
-          { url =
-              "https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz"
-          , sha256 =
-              "04hrwahdxyqdik559604r7wrj9ffklwvipgfxgj4ys4skbl6bdc7"
-          , name =
-              "gmp-6.1.2.tar.xz"
-          , executable =
-              False
-          }
+let `gmp-6.1.2.tar.xz` =
+      dhallix.fetch-url
+      { url =
+          "https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz"
+      , sha256 =
+          "04hrwahdxyqdik559604r7wrj9ffklwvipgfxgj4ys4skbl6bdc7"
+      , name =
+          "gmp-6.1.2.tar.xz"
+      , executable =
+          False
+      }
 
-in  let `m4-1.4.18` = ./m4.dhall
+let `m4-1.4.18` = ./m4.dhall
 
-in  let write-file = ./write-file.dhall
+let write-file = ./write-file.dhall
 
 in  dhallix.derivation
     (   λ ( store-path

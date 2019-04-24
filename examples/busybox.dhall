@@ -1,4 +1,4 @@
-    let dhallix = ./../dhall/package.dhall
+let dhallix = ./../dhall/package.dhall
 
 in  dhallix.fetch-url
     { name =
