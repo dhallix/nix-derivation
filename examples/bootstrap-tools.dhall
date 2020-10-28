@@ -27,7 +27,7 @@ let `unpack-bootstrap-tools.sh` =
         { name = "unpack-bootstrap-tools.sh"
         , url =
             "https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/stdenv/linux/bootstrap-tools/scripts/unpack-bootstrap-tools.sh"
-        , sha256 = "0r0knqg97l05r1rrcmzyjl79rfdgmlslam8as8sq2lba54gyxl5k"
+        , sha256 = "19g9k9dff1bcijdy6slhvgyjlbnwril6rjs2spk4k6nhigpdkkl0"
         , executable = False
         }
 
