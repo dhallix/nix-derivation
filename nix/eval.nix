@@ -17,21 +17,21 @@ x ( args:
       builder =
         args.builder
           { Builtin =
-              f: f { Fetch-Url = _: "builtin:fetchurl"; };
+              f: f { Fetch-Url = "builtin:fetchurl"; };
             Exe = str: str;
           };
 
       system =
         args.system
-          { builtin = _: "builtin";
-            x86_64-linux = _: "x86_64-linux";
+          { builtin = "builtin";
+            x86_64-linux = "x86_64-linux";
           };
     } //
     ( if args.output-hash != null then
         { outputHashMode =
             args.output-hash.mode
-              { Flat = _: "flat";
-                Recursive = _: "recursive";
+              { Flat = "flat";
+                Recursive = "recursive";
               };
 
           outputHash =
@@ -39,7 +39,7 @@ x ( args:
 
           outputHashAlgo =
             args.output-hash.algorithm
-              ( { SHA256 = _: "sha256"; } );
+              ( { SHA256 = "sha256"; } );
         }
       else
         {}
