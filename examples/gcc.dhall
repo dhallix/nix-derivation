@@ -1,6 +1,6 @@
-let dhallix = ./../dhall/package.dhall
+let dhallix = ../dhall/package.dhall
 
-let T = ./../dhall/types.dhall
+let T = ../dhall/types.dhall
 
 let bootstrap-tools = ./bootstrap-tools.dhall
 
