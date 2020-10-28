@@ -18,29 +18,29 @@ let write-file = ./write-file.dhall
 
 in  dhallix.derivation
       ( λ(store-path : T.Derivation → Text) →
-            dhallix.defaults.Args
-          ⫽ { builder = T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
-            , args =
-              [ store-path
-                  ( write-file
-                      ''
-                      export PATH="${store-path
-                                       bootstrap-tools}/bin":"${store-path
-                                                                  `m4-1.4.18`}/bin"
-                      tar xJf "${store-path `gmp-6.1.2.tar.xz`}"
-                      cd gmp-6.1.2
-                      ./configure CPPFLAGS="-idirafter ${store-path
-                                                           bootstrap-tools}/include-glibc -idirafter ${store-path
-                                                                                                         bootstrap-tools}/lib/gcc/x86_64-unknown-linux-gnu/5.3.0/include-fixed -Wl,-dynamic-linker -Wl,${store-path
-                                                                                                                                                                                                           bootstrap-tools}/lib/ld-linux-x86-64.so.2 -Wl,-rpath -Wl,${store-path
-                                                                                                                                                                                                                                                                        bootstrap-tools}/lib" --prefix="$out"
-                      make
-                      make check
-                      make install
-                      ''
-                  )
-              ]
-            , name = "gmp-6.1.2"
-            , system = T.System.x86_64-linux
-            }
+          dhallix.Args::{
+          , builder = T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+          , args =
+            [ store-path
+                ( write-file
+                    ''
+                    export PATH="${store-path
+                                     bootstrap-tools}/bin":"${store-path
+                                                                `m4-1.4.18`}/bin"
+                    tar xJf "${store-path `gmp-6.1.2.tar.xz`}"
+                    cd gmp-6.1.2
+                    ./configure CPPFLAGS="-idirafter ${store-path
+                                                         bootstrap-tools}/include-glibc -idirafter ${store-path
+                                                                                                       bootstrap-tools}/lib/gcc/x86_64-unknown-linux-gnu/5.3.0/include-fixed -Wl,-dynamic-linker -Wl,${store-path
+                                                                                                                                                                                                         bootstrap-tools}/lib/ld-linux-x86-64.so.2 -Wl,-rpath -Wl,${store-path
+                                                                                                                                                                                                                                                                      bootstrap-tools}/lib" --prefix="$out"
+                    make
+                    make check
+                    make install
+                    ''
+                )
+            ]
+          , name = "gmp-6.1.2"
+          , system = T.System.x86_64-linux
+          }
       )

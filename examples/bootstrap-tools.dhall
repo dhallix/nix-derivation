@@ -33,17 +33,17 @@ let `unpack-bootstrap-tools.sh` =
 
 in  dhallix.derivation
       ( λ(store-path : T.Derivation → Text) →
-            dhallix.defaults.Args
-          ⫽ { builder = T.Builder.Exe "${store-path busybox}"
-            , args = [ "ash", store-path `unpack-bootstrap-tools.sh` ]
-            , name = "bootstrap-tools"
-            , system = T.System.x86_64-linux
-            , environment =
-              [ { name = "tarball"
-                , value =
-                    T.Environment-Variable.Text
-                      (store-path `bootstrap-tools.tar.xz`)
-                }
-              ]
-            }
+          dhallix.Args::{
+          , builder = T.Builder.Exe "${store-path busybox}"
+          , args = [ "ash", store-path `unpack-bootstrap-tools.sh` ]
+          , name = "bootstrap-tools"
+          , system = T.System.x86_64-linux
+          , environment =
+            [ { name = "tarball"
+              , value =
+                  T.Environment-Variable.Text
+                    (store-path `bootstrap-tools.tar.xz`)
+              }
+            ]
+          }
       )
