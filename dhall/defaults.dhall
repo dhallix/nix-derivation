@@ -1,1 +1,1 @@
-{ defaults = { Args = ./defaults/Args.dhall } }
+{ defaults.Args = ./defaults/Args.dhall }
