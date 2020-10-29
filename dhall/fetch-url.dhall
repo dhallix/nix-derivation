@@ -1,33 +1,49 @@
 let derivation = ./derivation.dhall
 
-let T = ./types.dhall
+let types = ./types.dhall
 
-let Args = { name : Text, url : Text, sha256 : Text, executable : Bool }
+let Derivation = types.Derivation
+
+let System = types.System
+
+let Builder = types.Builder
+
+let Builtin = types.Builtin
+
+let Output-Hash-Mode = types.Output-Hash-Mode
+
+let Output-Hash-Algorithm = types.Output-Hash-Algorithm
+
+let Environment-Variable = types.Environment-Variable
+
+let Args = ./schemas/Args.dhall
+
+let Fetch-Url = ./schemas/Fetch-Url.dhall
 
 let fetch-url
-    : Args → T.Derivation
-    = λ(args : Args) →
+    : Fetch-Url.Type → Derivation
+    = λ(args : Fetch-Url.Type) →
         derivation
-          ( λ(_ : T.Derivation → Text) →
-              (./schemas/Args.dhall)::{
+          ( λ(_ : Derivation → Text) →
+              Args::{
               , name = args.name
-              , system = T.System.builtin
-              , builder = T.Builder.Builtin T.Builtin.Fetch-Url
+              , system = System.builtin
+              , builder = Builder.Builtin Builtin.Fetch-Url
               , output-hash = Some
                 { mode =
                     if    args.executable
-                    then  T.Output-Hash-Mode.Recursive
-                    else  T.Output-Hash-Mode.Flat
+                    then  Output-Hash-Mode.Recursive
+                    else  Output-Hash-Mode.Flat
                 , hash = args.sha256
-                , algorithm = T.Output-Hash-Algorithm.SHA256
+                , algorithm = Output-Hash-Algorithm.SHA256
                 }
               , environment =
-                [ { name = "url", value = T.Environment-Variable.Text args.url }
+                [ { name = "url", value = Environment-Variable.Text args.url }
                 , { name = "preferLocalBuild"
-                  , value = T.Environment-Variable.Bool True
+                  , value = Environment-Variable.Bool True
                   }
                 , { name = "executable"
-                  , value = T.Environment-Variable.Bool args.executable
+                  , value = Environment-Variable.Bool args.executable
                   }
                 ]
               }

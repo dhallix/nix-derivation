@@ -1,30 +1,43 @@
 let dhallix = ../dhall/package.dhall
 
-let T = ../dhall/types.dhall
+let derivation = dhallix.derivation
+
+let Derivation = dhallix.Derivation
+
+let Builder = dhallix.Builder
+
+let Environment-Variable = dhallix.Environment-Variable
+
+let System = dhallix.System
+
+let Args = dhallix.Args
+
+let fetch-url = dhallix.fetch-url
+
+let Fetch-Url = dhallix.Fetch-Url
 
 let bootstrap-tools = ./bootstrap-tools.dhall
 
 let `mpfr-4.0.1.tar.xz` =
-      dhallix.fetch-url
-        { url = "https://www.mpfr.org/mpfr-current/mpfr-4.0.1.tar.xz"
+      fetch-url
+        Fetch-Url::{
+        , url = "https://www.mpfr.org/mpfr-current/mpfr-4.0.1.tar.xz"
         , sha256 = "0vp1lrc08gcmwdaqck6bpzllkrykvp06vz5gnqpyw0v3h9h4m1v7"
         , name = "mpfr-4.0.1.tar.xz"
-        , executable = False
         }
 
 let gmp = ./gmp.dhall
 
 let write-file = ./write-file.dhall
 
-in  dhallix.derivation
-      ( λ(store-path : T.Derivation → Text) →
-          dhallix.Args::{
-          , builder = T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+in  derivation
+      ( λ(store-path : Derivation → Text) →
+          Args::{
+          , builder = Builder.Exe "${store-path bootstrap-tools}/bin/bash"
           , args =
             [ store-path
                 ( write-file
                     ''
-                    export PATH="${store-path bootstrap-tools}/bin"
                     tar xJf "${store-path `mpfr-4.0.1.tar.xz`}"
                     cd mpfr-4.0.1
                     ./configure --with-gmp="${store-path
@@ -40,6 +53,12 @@ in  dhallix.derivation
                 )
             ]
           , name = "mpfr-4.0.1"
-          , system = T.System.x86_64-linux
+          , system = System.x86_64-linux
+          , environment =
+            [ { name = "PATH"
+              , value =
+                  Environment-Variable.Text "${store-path bootstrap-tools}/bin"
+              }
+            ]
           }
       )

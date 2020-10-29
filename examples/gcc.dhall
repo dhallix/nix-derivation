@@ -1,16 +1,30 @@
 let dhallix = ../dhall/package.dhall
 
-let T = ../dhall/types.dhall
+let Derivation = dhallix.Derivation
+
+let Builder = dhallix.Builder
+
+let Environment-Variable = dhallix.Environment-Variable
+
+let System = dhallix.System
+
+let Args = dhallix.Args
+
+let fetch-url = dhallix.fetch-url
+
+let Fetch-Url = dhallix.Fetch-Url
+
+let derivation = dhallix.derivation
 
 let bootstrap-tools = ./bootstrap-tools.dhall
 
 let `gcc-8.2.0.tar.gz` =
-      dhallix.fetch-url
-        { url =
+      fetch-url
+        Fetch-Url::{
+        , url =
             "ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-8.2.0/gcc-8.2.0.tar.gz"
         , sha256 = "03q2farmhd099rd1kw0p1y0n1f37af1l6dy8p75mizs522z3c3qv"
         , name = "gcc-8.2.0.tar.gz"
-        , executable = False
         }
 
 let `gmp-6.1.2` = ./gmp.dhall
@@ -19,38 +33,16 @@ let mpfr = ./mpfr.dhall
 
 let mpc = ./mpc.dhall
 
-let write-file =
-      λ(source : Text) →
-        dhallix.derivation
-          ( λ(store-path : T.Derivation → Text) →
-              dhallix.Args::{
-              , builder = T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
-              , args =
-                [ "-c"
-                , "${store-path bootstrap-tools}/bin/cp \$sourcePath \$out"
-                ]
-              , name = "source"
-              , system = T.System.x86_64-linux
-              , environment =
-                [ { name = "source"
-                  , value = T.Environment-Variable.Text source
-                  }
-                , { name = "passAsFile"
-                  , value = T.Environment-Variable.Text "source"
-                  }
-                ]
-              }
-          )
+let write-file = ./write-file.dhall
 
-in  dhallix.derivation
-      ( λ(store-path : T.Derivation → Text) →
-          dhallix.Args::{
-          , builder = T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+in  derivation
+      ( λ(store-path : Derivation → Text) →
+          Args::{
+          , builder = Builder.Exe "${store-path bootstrap-tools}/bin/bash"
           , args =
             [ store-path
                 ( write-file
                     ''
-                    export PATH="${store-path bootstrap-tools}/bin"
                     tar xzf "${store-path `gcc-8.2.0.tar.gz`}"
                     mkdir objdir
                     cd objdir
@@ -71,6 +63,12 @@ in  dhallix.derivation
                 )
             ]
           , name = "gcc-8.2.0"
-          , system = T.System.x86_64-linux
+          , system = System.x86_64-linux
+          , environment =
+            [ { name = "PATH"
+              , value =
+                  Environment-Variable.Text "${store-path bootstrap-tools}/bin"
+              }
+            ]
           }
       )

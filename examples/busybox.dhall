@@ -1,7 +1,12 @@
 let dhallix = ../dhall/package.dhall
 
-in  dhallix.fetch-url
-      { name = "busybox"
+let fetch-url = dhallix.fetch-url
+
+let Fetch-Url = dhallix.Fetch-Url
+
+in  fetch-url
+      Fetch-Url::{
+      , name = "busybox"
       , executable = True
       , url =
           "http://tarballs.nixos.org/stdenv-linux/i686/4907fc9e8d0d82b28b3c56e3a478a2882f1d700f/busybox"

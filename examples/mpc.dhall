@@ -1,15 +1,29 @@
 let dhallix = ../dhall/package.dhall
 
-let T = ../dhall/types.dhall
+let derivation = dhallix.derivation
+
+let Derivation = dhallix.Derivation
+
+let Builder = dhallix.Builder
+
+let System = dhallix.System
+
+let fetch-url = dhallix.fetch-url
+
+let Fetch-Url = dhallix.Fetch-Url
+
+let Args = dhallix.Args
+
+let Environment-Variable = dhallix.Environment-Variable
 
 let bootstrap-tools = ./bootstrap-tools.dhall
 
 let `mpc-1.1.0.tar.gz` =
       dhallix.fetch-url
-        { url = "https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz"
+        Fetch-Url::{
+        , url = "https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz"
         , sha256 = "0biwnhjm3rx3hc0rfpvyniky4lpzsvdcwhmcn7f0h4iw2hwcb1b9"
         , name = "mpc-1.1.0.tar.xz"
-        , executable = False
         }
 
 let gmp = ./gmp.dhall
@@ -18,15 +32,14 @@ let mpfr = ./mpfr.dhall
 
 let write-file = ./write-file.dhall
 
-in  dhallix.derivation
-      ( λ(store-path : T.Derivation → Text) →
-          dhallix.Args::{
-          , builder = T.Builder.Exe "${store-path bootstrap-tools}/bin/bash"
+in  derivation
+      ( λ(store-path : Derivation → Text) →
+          Args::{
+          , builder = Builder.Exe "${store-path bootstrap-tools}/bin/bash"
           , args =
             [ store-path
                 ( write-file
                     ''
-                    export PATH="${store-path bootstrap-tools}/bin"
                     tar xzf "${store-path `mpc-1.1.0.tar.gz`}"
                     cd mpc-1.1.0
                     ./configure --with-gmp="${store-path
@@ -43,6 +56,12 @@ in  dhallix.derivation
                 )
             ]
           , name = "mpc-1.1.0"
-          , system = T.System.x86_64-linux
+          , system = System.x86_64-linux
+          , environment =
+            [ { name = "PATH"
+              , value =
+                  Environment-Variable.Text "${store-path bootstrap-tools}/bin"
+              }
+            ]
           }
       )
