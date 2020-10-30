@@ -20,8 +20,8 @@ let bootstrap-tools = ./bootstrap-tools.dhall
 
 let `m4-1.4.18.tar.xz` =
       Fetch-Url::{
-      , url = "ftp://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz"
-      , sha256 = "0mdqa9w1p6cmli6976v4wi0sw9r4p5prkj7lzfd1877wk11c9c73"
+      , url = "http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz"
+      , sha256 = "01sfjd5a4waqw83bibvmn522g69qfqvwig9i2qlgy154l1nfihgj"
       , name = "m4-1.4.18.tar.xz"
       }
 

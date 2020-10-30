@@ -22,7 +22,7 @@ let `gcc-8.2.0.tar.gz` =
       fetch-url
         Fetch-Url::{
         , url =
-            "ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-8.2.0/gcc-8.2.0.tar.gz"
+            "http://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-8.2.0/gcc-8.2.0.tar.gz"
         , sha256 = "03q2farmhd099rd1kw0p1y0n1f37af1l6dy8p75mizs522z3c3qv"
         , name = "gcc-8.2.0.tar.gz"
         }
